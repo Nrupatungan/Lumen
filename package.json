@@ -1,6 +1,10 @@
 {
   "name": "ai-knowledge-management",
   "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev",
@@ -13,7 +17,7 @@
     "turbo": "^2.6.1",
     "typescript": "5.9.2"
   },
-  "packageManager": "pnpm@9.0.0",
+  "packageManager": "pnpm@10.21.0",
   "engines": {
     "node": ">=18"
   }
