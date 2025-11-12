@@ -4,9 +4,14 @@
   "private": true,
   "description": "",
   "main": "dist/index.js",
+  "type": "module",
   "scripts": {
-    "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
-    "build": ""
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc -p tsconfig.json",
+    "lint": "eslint . --ext .ts,.js --max-warnings=0",
+    "lint:fix": "eslint . --ext .ts,.js --fix",
+    "start": "node dist/index.js",
+    "check-types": "tsc --noEmit"
   },
   "keywords": [],
   "author": "",
@@ -18,7 +23,6 @@
     "helmet": "^8.1.0",
     "jsonwebtoken": "^9.0.2",
     "morgan": "^1.10.1",
-    "ts-node-dev": "^2.0.0",
     "winston": "^3.18.3"
   },
   "devDependencies": {
@@ -30,6 +34,10 @@
     "@types/jsonwebtoken": "^9.0.10",
     "@types/morgan": "^1.9.10",
     "@types/node": "^22.15.3",
-    "eslint-plugin-prettier": "^5.5.4"
+    "@typescript-eslint/eslint-plugin": "^8.46.4",
+    "@typescript-eslint/parser": "^8.46.4",
+    "eslint": "^9.39.1",
+    "eslint-plugin-prettier": "^5.5.4",
+    "tsx": "^4.20.6"
   }
 }
