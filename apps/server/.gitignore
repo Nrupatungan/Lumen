@@ -1,0 +1,94 @@
+# ----------------------------
+# Dependencies
+# ----------------------------
+node_modules/
+/.pnp
+.pnp.js
+
+# ----------------------------
+# Turbo
+# ----------------------------
+.turbo/
+
+# ----------------------------
+# env files (can opt-in for commiting if needed)
+# ----------------------------
+.env
+.env.*
+!.env.example
+
+# ----------------------------
+# yarn
+# ----------------------------
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# ----------------------------
+# Build outputs
+# ----------------------------
+dist/
+build/
+.out/
+.cache/
+.next/
+out/
+coverage/
+tmp/
+temp/
+apps/*/.next/standalone/
+
+# ----------------------------
+# misc
+# ----------------------------
+.DS_Store
+*.pem
+
+# ----------------------------
+# debug
+# ----------------------------
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ----------------------------
+# TypeScript
+# ----------------------------
+*.tsbuildinfo
+next-env.d.ts
+env.d.ts
+
+# ----------------------------
+# Logs and OS files
+# ----------------------------
+logs/
+*.log
+*.gz
+.DS_Store
+Thumbs.db
+
+# ----------------------------
+# IDE / Editor folders
+# ----------------------------
+.vscode/
+.idea/
+*.swp
+*.swo
+*.bak
+
+# ----------------------------
+# Docker / Containers
+# ----------------------------
+docker-compose.override.yml
+.docker/
+*.pid
+*.seed
+*.tar
+
+# ----------------------------
+# System backups
+# ----------------------------
+*.old
+*.backup
