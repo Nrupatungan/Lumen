@@ -1,0 +1,27 @@
+# Dependencies
+/node_modules
+
+# Production
+/dist
+/.turbo
+
+# Local env files
+.env
+.env.*
+!.env.example
+
+# Testing
+/coverage
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Typescript
+*.tsbuildinfo
+env.d.ts
+
+# misc
+.DS_Store
+*.pem
