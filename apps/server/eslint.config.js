@@ -1,5 +1,6 @@
-import { baseConfig, globals } from '@repo/eslint-config/base';
+import { baseConfig } from '@repo/eslint-config/base';
 import prettierPlugin from 'eslint-plugin-prettier';
+import globals from 'globals';
 
 /** @type {import("eslint").Linter.Config[]} */
 export default [

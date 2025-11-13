@@ -33,5 +33,3 @@ export const baseConfig = [
     ignores: ["dist/**", "node_modules/**"],
   },
 ];
-
-export { eslintConfigPrettier, js, globals };
