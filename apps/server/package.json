@@ -11,7 +11,8 @@
     "lint": "eslint --max-warnings 0",
     "lint:fix": "eslint --fix",
     "start": "node dist/index.js",
-    "check-types": "tsc --noEmit"
+    "check-types": "tsc --noEmit",
+    "test": "vitest"
   },
   "keywords": [],
   "author": "",
@@ -22,22 +23,28 @@
     "express": "^5.1.0",
     "helmet": "^8.1.0",
     "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.19.4",
     "morgan": "^1.10.1",
     "winston": "^3.18.3"
   },
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
+    "@repo/vitest-config": "workspace:*",
     "@types/bcrypt": "^6.0.0",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.5",
     "@types/jsonwebtoken": "^9.0.10",
     "@types/morgan": "^1.9.10",
     "@types/node": "^22.15.3",
+    "@types/supertest": "^6.0.3",
     "@typescript-eslint/eslint-plugin": "^8.46.4",
     "@typescript-eslint/parser": "^8.46.4",
+    "@vitest/coverage-istanbul": "^4.0.9",
     "eslint-plugin-prettier": "^5.5.4",
     "globals": "^16.5.0",
+    "mongodb-memory-server": "^10.3.0",
+    "supertest": "^7.1.4",
     "tsx": "^4.20.6"
   }
 }
