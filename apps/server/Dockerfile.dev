@@ -1,0 +1,27 @@
+# ===========================================
+# Development Dockerfile for Server
+# ===========================================
+FROM node:24 AS dev
+
+# Install system tools
+RUN apt-get update && apt-get install -y git links2 && rm -rf /var/lib/apt/lists/*
+
+# Enable pnpm
+RUN corepack enable && corepack prepare pnpm@latest-10 --activate
+
+WORKDIR /app
+
+# Copy only workspace metadata first (enables caching)
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml turbo.json ./
+
+# Install root dependencies first (cached between builds)
+ENV CI=true
+RUN pnpm install --ignore-scripts
+
+# Now copy full monorepo (source code)
+COPY . .
+
+# Install remaining dependencies with workspace symlinks
+RUN pnpm install
+
+CMD ["pnpm", "--filter", "server", "dev"]

@@ -22,7 +22,7 @@ app.get("/health", (req, res) => {
 });
 
 app.get("/api", (req, res) => {
-  res.status(200).json({ message: "Lumen's API is running!" });
+  res.status(200).json({ message: "Lumen's API is running and rocking!!!!" });
 });
 
 export default app;
