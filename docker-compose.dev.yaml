@@ -7,8 +7,7 @@ services:
     ports:
       - "3000:3000"
     env_file:
-      - apps/web/.env.development
-      - apps/web/.env.development.local
+      - apps/web/.env.local
     volumes:
       - ./apps/web:/app/apps/web             # Web source code
       - ./apps/server:/app/apps/server       # Cross imports allowed
@@ -31,7 +30,7 @@ services:
     ports:
       - "3001:3001"
     env_file:
-      - apps/server/.env.development
+      - apps/server/.env
     volumes:
       - ./apps/server:/app/apps/server
       - ./apps/web:/app/apps/web
