@@ -2,7 +2,6 @@
 # 1. Base image
 # ===========================================
 FROM node:24 AS base
-RUN apt-get update && apt-get install -y links2 git && rm -rf /var/lib/apt/lists/*
 RUN corepack enable && corepack prepare pnpm@latest-10 --activate
 WORKDIR /app
 
