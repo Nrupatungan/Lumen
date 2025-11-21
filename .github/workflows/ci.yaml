@@ -33,8 +33,11 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pnpm-store-
 
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+      - name: Fetch dependencies
+        run: pnpm fetch
+
+      - name: Install dependencies (offline)
+        run: pnpm install --offline
 
       - name: Lint
         run: pnpm lint
