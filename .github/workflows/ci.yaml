@@ -17,17 +17,11 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v5
         with:
-          node-version: '24.x'
+          node-version: 24.x
 
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: '10.x'
-          run_install: false
-
-      - name: Enable pnpm via corepack
+      - name: Install pnpm manually
         run: |
-          corepack enable pnpm
+          npm install -g pnpm@latest-10
           pnpm --version
 
       - name: Setup pnpm store cache
