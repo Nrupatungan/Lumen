@@ -1,7 +1,8 @@
-import app from "./app.js";
+/* eslint-disable turbo/no-undeclared-env-vars */
+import app from './app.js';
 
-if (process.env.NODE_ENV !== "production") {
-  const { config } = await import("dotenv");
+if (process.env.NODE_ENV !== 'production') {
+  const { config } = await import('dotenv');
   config();
 }
 
