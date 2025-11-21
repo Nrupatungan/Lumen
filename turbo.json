@@ -11,6 +11,7 @@
       "dependsOn": ["^lint"]
     },
     "lint:fix": {
+      "inputs": ["$TURBO_DEFAULT$","$TURBO_ROOT$/apps/server/.env*"],
       "dependsOn": ["^lint:fix"]
     },
     "check-types": {
