@@ -1,8 +1,9 @@
-import { uiConfig } from "@repo/vitest-config/ui";
-import { mergeConfig } from "vitest/config";
+import { uiConfig } from '@repo/vitest-config/ui';
+import { mergeConfig } from 'vitest/config';
 
 export default mergeConfig(uiConfig, {
   test: {
-    setupFiles: "./test/setup.ts",
+    setupFiles: './tests/setup.ts',
+    include: ['./**/*.{test,spec}.{ts,tsx}'],
   },
 });
