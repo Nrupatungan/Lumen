@@ -11,25 +11,29 @@ import globals from "globals";
 export const baseConfig = [
   js.configs.recommended,
   ...tseslint.configs.recommended,
-  eslintConfigPrettier,
+
   {
     languageOptions: {
       ecmaVersion: "latest",
       sourceType: "module",
       globals: {
         ...globals.node,
-        ...globals.es2022,
-      },
+        ...globals.es2022
+      }
     },
     plugins: {
       turbo: turboPlugin,
-      onlyWarn,
+      onlyWarn
     },
     rules: {
-      "turbo/no-undeclared-env-vars": "warn",
-    },
+      "turbo/no-undeclared-env-vars": "warn"
+    }
   },
+
   {
-    ignores: ["dist/**", "node_modules/**"],
+    ignores: ["dist/**", "node_modules/**"]
   },
+
+  // MUST BE LAST
+  eslintConfigPrettier
 ];

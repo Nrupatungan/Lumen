@@ -10,7 +10,8 @@
     "lint": "eslint --max-warnings 0",
     "lint:fix": "eslint --fix",
     "check-types": "next typegen && tsc --noEmit",
-    "test": "vitest"
+    "test": "vitest run",
+    "test:watch": "vitest watch"
   },
   "dependencies": {
     "@tailwindcss/postcss": "^4.1.17",

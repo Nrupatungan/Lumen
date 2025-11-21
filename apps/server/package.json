@@ -12,7 +12,8 @@
     "lint:fix": "eslint --fix",
     "start": "node dist/index.js",
     "check-types": "tsc --noEmit",
-    "test": "vitest"
+    "test": "vitest run",
+    "test:watch": "vitest watch"
   },
   "keywords": [],
   "author": "",
@@ -42,7 +43,6 @@
     "@typescript-eslint/eslint-plugin": "^8.46.4",
     "@typescript-eslint/parser": "^8.46.4",
     "@vitest/coverage-istanbul": "^4.0.9",
-    "eslint-plugin-prettier": "^5.5.4",
     "globals": "^16.5.0",
     "mongodb-memory-server": "^10.3.0",
     "supertest": "^7.1.4",

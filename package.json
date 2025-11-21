@@ -10,8 +10,7 @@
     "format:check": "prettier --check \"**/*.{ts,tsx,json,md}\"",
     "check-types": "turbo run check-types",
     "test": "turbo run test --parallel",
-    "test:projects": "vitest run",
-    "test:projects:watch": "vitest --watch",
+    "test:watch": "turbo run test:watch",
     "view-report": "turbo run view-report"
   },
   "devDependencies": {

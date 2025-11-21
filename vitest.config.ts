@@ -1,12 +1,12 @@
-import { defineConfig } from "vitest/config";
-import { sharedConfig } from "@repo/vitest-config";
+import { defineConfig } from 'vitest/config';
+import { sharedConfig } from '@repo/vitest-config';
 
 export default defineConfig({
   ...sharedConfig,
   test: {
     projects: [
       {
-        root: "./packages",
+        root: './packages',
         test: {
           ...sharedConfig.test,
           // Project-specific configuration for packages
@@ -14,19 +14,19 @@ export default defineConfig({
         },
       },
       {
-        root: "./apps/server",
+        root: './apps/server',
         test: {
           ...sharedConfig.test,
           // Project-specific configuration for apps
-          environment: "node",
+          environment: 'node',
         },
       },
       {
-        root: "./apps/web",
+        root: './apps/web',
         test: {
           ...sharedConfig.test,
           // Project-specific configuration for apps
-          environment: "jsdom",
+          environment: 'jsdom',
         },
       },
     ],

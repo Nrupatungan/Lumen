@@ -1,6 +1,6 @@
 import { beforeAll, afterAll, describe, it, expect } from 'vitest';
 import { User } from '../User.js';
-import { setupTestDB, teardownTestDB } from '../../test/setup.js';
+import { setupTestDB, teardownTestDB } from '../../tests/setup.js';
 
 beforeAll(async () => await setupTestDB());
 afterAll(async () => await teardownTestDB());
