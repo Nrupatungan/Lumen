@@ -1,15 +1,15 @@
-import { defineConfig } from 'vitest/config';
+import { defineConfig } from "vitest/config";
 
 export const uiConfig = defineConfig({
   test: {
-    environment: 'jsdom',
+    environment: "jsdom",
     coverage: {
-      provider: 'istanbul',
+      provider: "istanbul",
       reporter: [
         [
-          'json',
+          "json",
           {
-            file: '../coverage.json',
+            file: "../coverage.json",
           },
         ],
       ],
