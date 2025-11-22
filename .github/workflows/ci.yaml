@@ -43,6 +43,9 @@ jobs:
       - name: Install dependencies (offline)
         run: pnpm install --offline
 
+      - name: Type Check
+        run: pnpm check-types
+
       - name: Lint
         run: pnpm lint
 
