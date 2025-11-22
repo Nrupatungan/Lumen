@@ -15,7 +15,9 @@
       "dependsOn": ["^lint:fix"]
     },
     "check-types": {
-      "dependsOn": ["^check-types"]
+      "dependsOn": ["^check-types"],
+      "inputs": ["$TURBO_DEFAULT$"],
+      "outputs": []
     },
     "dev": {
       "cache": false,
@@ -23,12 +25,12 @@
     },
     "test": {
       "inputs": ["$TURBO_DEFAULT$", "$TURBO_ROOT$/vitest.config.ts"],
-      "dependsOn": ["transit", "@repo/vitest-config#build"],
+      "dependsOn": ["transit"],
       "outputs": ["coverage.json"]
     },
     "test:watch": {
       "inputs": ["$TURBO_DEFAULT$", "$TURBO_ROOT$/vitest.config.ts"],
-      "dependsOn": ["transit", "@repo/vitest-config#build"],
+      "dependsOn": ["transit"],
       "outputs": ["coverage.json"]
     },
     "transit": {
