@@ -12,6 +12,12 @@ export default [
       globals: globals.node
     },
     rules: {
+      "turbo/no-undeclared-env-vars": "off",
+      indent: ["error", 2, { SwitchCase: 1 }],
+      "linebreak-style": ["error", "unix"],
+      quotes: ["error", "double"],
+      semi: ["error", "always"],
+      "no-unused-vars": ["error", { argsIgnorePattern: "^_" }],
       "no-console": "off",
       "prefer-const": "error",
       "no-var": "error",
