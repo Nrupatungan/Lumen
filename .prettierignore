@@ -1,2 +1,6 @@
 node_modules/
 .turbo/
+coverage.json
+coverage/
+.next/
+dist/

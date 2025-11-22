@@ -1,5 +1,6 @@
 {
   "extends": ["//"],
+  "$schema": "https://turborepo.com/schema.json",
   "tasks": {
     "collect-json-reports": {
       "cache": false

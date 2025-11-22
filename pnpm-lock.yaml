@@ -210,6 +210,9 @@ importers:
       nyc:
         specifier: ^17.1.0
         version: 17.1.0
+      tsx:
+        specifier: ^4.20.6
+        version: 4.20.6
 
 packages:
 
