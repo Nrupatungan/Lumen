@@ -5,6 +5,8 @@
     "plugins": [{ "name": "next" }],
     "module": "ESNext",
     "moduleResolution": "Bundler",
+    "forceConsistentCasingInFileNames": true,
+    "esModuleInterop": true,
     "allowJs": true,
     "jsx": "preserve",
     "noEmit": true
