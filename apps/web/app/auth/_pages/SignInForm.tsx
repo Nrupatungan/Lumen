@@ -13,7 +13,6 @@ import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import { styled } from "@mui/material/styles";
 import ForgotPassword from "@/components/ForgotPassword";
-import AppTheme from "@/components/theme/theme";
 import {
   GoogleIcon,
   FacebookIcon,
@@ -47,7 +46,7 @@ const CenteredContainer = styled("div")(({ theme }) => ({
   position: "relative",
 }));
 
-export default function SignInForm(props: { disableCustomTheme?: boolean }) {
+export default function SignInForm() {
   const [emailError, setEmailError] = React.useState(false);
   const [emailErrorMessage, setEmailErrorMessage] = React.useState("");
   const [passwordError, setPasswordError] = React.useState(false);
@@ -102,7 +101,7 @@ export default function SignInForm(props: { disableCustomTheme?: boolean }) {
   };
 
   return (
-    <AppTheme {...props}>
+    <>
       <CssBaseline enableColorScheme />
       <SignInBackground />
       <CenteredContainer>
@@ -165,7 +164,7 @@ export default function SignInForm(props: { disableCustomTheme?: boolean }) {
                 autoFocus
                 required
                 fullWidth
-                variant="standard"
+                variant="outlined"
                 color={emailError ? "error" : "primary"}
                 sx={(theme) => ({
                   ...theme.applyStyles("dark", {
@@ -173,6 +172,9 @@ export default function SignInForm(props: { disableCustomTheme?: boolean }) {
                       color: theme.palette.grey["400"], // DARK MODE placeholder
                       opacity: 1,
                     },
+                    "& .MuiInputBase-formControl": {
+                      borderColor: "hsla(21.6, 11.7%, 76.5%, 0.6)",
+                    }
                   }),
                 })}
               />
@@ -190,7 +192,7 @@ export default function SignInForm(props: { disableCustomTheme?: boolean }) {
                 autoFocus
                 required
                 fullWidth
-                variant="standard"
+                variant="outlined"
                 color={passwordError ? "error" : "primary"}
                 sx={(theme) => ({
                   ...theme.applyStyles("dark", {
@@ -198,6 +200,9 @@ export default function SignInForm(props: { disableCustomTheme?: boolean }) {
                       color: theme.palette.grey["400"], // DARK MODE placeholder
                       opacity: 1,
                     },
+                    "& .MuiInputBase-formControl": {
+                      borderColor: "hsla(21.6, 11.7%, 76.5%, 0.6)",
+                    }
                   }),
                 })}
               />
@@ -260,11 +265,15 @@ export default function SignInForm(props: { disableCustomTheme?: boolean }) {
                 variant="body2"
                 sx={{
                   alignSelf: "center",
-                  "&::before": {
-                    background: "hsl(171.8, 91.6%, 46.9%)",
-                    opacity: 1,
-                    bottom: "-1px",
-                  },
+                  '&::before': {
+                      backgroundColor: 'hsl(118, 98.4%, 47.8%)',   // Dark mode color here
+                      opacity: '0.6',
+                      bottom: '-2px'
+                    },
+                    '&:hover': {
+                      textDecorationColor: 'hsl(118, 98.4%, 47.8%)',
+                      textUnderlinePosition: 'under'
+                    },
                 }}
               >
                 Sign up
@@ -273,6 +282,6 @@ export default function SignInForm(props: { disableCustomTheme?: boolean }) {
           </Box>
         </Card>
       </CenteredContainer>
-    </AppTheme>
+    </>
   );
 }

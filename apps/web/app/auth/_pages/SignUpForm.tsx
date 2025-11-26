@@ -12,7 +12,6 @@ import Link from "@mui/material/Link";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import { styled } from "@mui/material/styles";
-import AppTheme from "@/components/theme/theme";
 import {
   GoogleIcon,
   FacebookIcon,
@@ -20,6 +19,7 @@ import {
 } from "@/components/CustomIcon";
 import ColorModeIconDropdown from "@/components/ColorModeDropdown";
 import Card from "@mui/material/Card";
+import { boolean } from "zod/v3";
 
 const SignUpBackground = styled("div")(({ theme }) => ({
   position: "fixed",
@@ -46,7 +46,7 @@ const CenteredContainer = styled("div")(({ theme }) => ({
   position: "relative",
 }));
 
-export default function SignUpForm(props: { disableCustomTheme?: boolean }) {
+export default function SignUpForm() {
   const [emailError, setEmailError] = React.useState(false);
   const [emailErrorMessage, setEmailErrorMessage] = React.useState("");
   const [passwordError, setPasswordError] = React.useState(false);
@@ -106,7 +106,7 @@ export default function SignUpForm(props: { disableCustomTheme?: boolean }) {
   };
 
   return (
-    <AppTheme {...props}>
+    <>
       <CssBaseline enableColorScheme />
       <SignUpBackground />
       <CenteredContainer>
@@ -159,7 +159,7 @@ export default function SignUpForm(props: { disableCustomTheme?: boolean }) {
                 fullWidth
                 id="name"
                 placeholder="Jon Snow"
-                variant="standard"
+                variant="outlined"
                 error={nameError}
                 helperText={nameErrorMessage}
                 color={nameError ? "error" : "primary"}
@@ -169,6 +169,9 @@ export default function SignUpForm(props: { disableCustomTheme?: boolean }) {
                       color: theme.palette.grey["400"], // DARK MODE placeholder
                       opacity: 1,
                     },
+                    "& .MuiInputBase-formControl": {
+                      borderColor: "hsla(21.6, 11.7%, 76.5%, 0.6)",
+                    }
                   }),
                 })}
               />
@@ -182,7 +185,7 @@ export default function SignUpForm(props: { disableCustomTheme?: boolean }) {
                 placeholder="your@email.com"
                 name="email"
                 autoComplete="email"
-                variant="standard"
+                variant="outlined"
                 error={emailError}
                 helperText={emailErrorMessage}
                 color={passwordError ? "error" : "primary"}
@@ -192,6 +195,9 @@ export default function SignUpForm(props: { disableCustomTheme?: boolean }) {
                       color: theme.palette.grey["400"], // DARK MODE placeholder
                       opacity: 1,
                     },
+                    "& .MuiInputBase-formControl": {
+                      borderColor: "hsla(21.6, 11.7%, 76.5%, 0.6)",
+                    }
                   }),
                 })}
               />
@@ -206,7 +212,7 @@ export default function SignUpForm(props: { disableCustomTheme?: boolean }) {
                 type="password"
                 id="password"
                 autoComplete="new-password"
-                variant="standard"
+                variant="outlined"
                 error={passwordError}
                 helperText={passwordErrorMessage}
                 color={passwordError ? "error" : "primary"}
@@ -216,6 +222,9 @@ export default function SignUpForm(props: { disableCustomTheme?: boolean }) {
                       color: theme.palette.grey["400"], // DARK MODE placeholder
                       opacity: 1,
                     },
+                    "& .MuiInputBase-formControl": {
+                      borderColor: "hsla(21.6, 11.7%, 76.5%, 0.6)",
+                    }
                   }),
                 })}
               />
@@ -271,11 +280,15 @@ export default function SignUpForm(props: { disableCustomTheme?: boolean }) {
                 underline="hover"
                 sx={{
                   alignSelf: "center",
-                  "&::before": {
-                    background: "hsl(171.8, 91.6%, 46.9%)",
-                    opacity: 1,
-                    bottom: "-1px",
-                  },
+                  '&::before': {
+                      backgroundColor: 'hsl(118, 98.4%, 47.8%)',   // Dark mode color here
+                      opacity: '0.6',
+                      bottom: '-2px'
+                    },
+                    '&:hover': {
+                      textDecorationColor: 'hsl(118, 98.4%, 47.8%)',
+                      textUnderlinePosition: 'under'
+                    },
                 }}
               >
                 Sign in
@@ -284,6 +297,6 @@ export default function SignUpForm(props: { disableCustomTheme?: boolean }) {
           </Box>
         </Card>
       </CenteredContainer>
-    </AppTheme>
+    </>
   );
 }

@@ -3,7 +3,7 @@ import * as React from "react";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import type { ThemeOptions } from "@mui/material/styles";
 import { inputsCustomizations } from "@/components/theme/customizations/inputs";
-import { dataDisplayCustomizations } from "@/components/theme/customizations/dateDisplay";
+import { dataDisplayCustomizations } from "@/components/theme/customizations/dataDisplay";
 import { feedbackCustomizations } from "@/components/theme/customizations/feedback";
 import { navigationCustomizations } from "@/components/theme/customizations/navigation";
 import { surfacesCustomizations } from "@/components/theme/customizations/surfaces";
