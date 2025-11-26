@@ -19,7 +19,6 @@ import {
 } from "@/components/CustomIcon";
 import ColorModeIconDropdown from "@/components/ColorModeDropdown";
 import Card from "@mui/material/Card";
-import { boolean } from "zod/v3";
 
 const SignUpBackground = styled("div")(({ theme }) => ({
   position: "fixed",
@@ -171,7 +170,7 @@ export default function SignUpForm() {
                     },
                     "& .MuiInputBase-formControl": {
                       borderColor: "hsla(21.6, 11.7%, 76.5%, 0.6)",
-                    }
+                    },
                   }),
                 })}
               />
@@ -197,7 +196,7 @@ export default function SignUpForm() {
                     },
                     "& .MuiInputBase-formControl": {
                       borderColor: "hsla(21.6, 11.7%, 76.5%, 0.6)",
-                    }
+                    },
                   }),
                 })}
               />
@@ -224,7 +223,7 @@ export default function SignUpForm() {
                     },
                     "& .MuiInputBase-formControl": {
                       borderColor: "hsla(21.6, 11.7%, 76.5%, 0.6)",
-                    }
+                    },
                   }),
                 })}
               />
@@ -280,15 +279,15 @@ export default function SignUpForm() {
                 underline="hover"
                 sx={{
                   alignSelf: "center",
-                  '&::before': {
-                      backgroundColor: 'hsl(118, 98.4%, 47.8%)',   // Dark mode color here
-                      opacity: '0.6',
-                      bottom: '-2px'
-                    },
-                    '&:hover': {
-                      textDecorationColor: 'hsl(118, 98.4%, 47.8%)',
-                      textUnderlinePosition: 'under'
-                    },
+                  "&::before": {
+                    backgroundColor: "hsl(118, 98.4%, 47.8%)", // Dark mode color here
+                    opacity: "0.6",
+                    bottom: "-2px",
+                  },
+                  "&:hover": {
+                    textDecorationColor: "hsl(118, 98.4%, 47.8%)",
+                    textUnderlinePosition: "under",
+                  },
                 }}
               >
                 Sign in

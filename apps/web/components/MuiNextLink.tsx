@@ -9,9 +9,16 @@ const inter = Inter({ subsets: ["latin"] });
 
 export default forwardRef<HTMLAnchorElement, LinkProps>(
   function MuiNextLink(props, ref) {
-    return <Link component={NextLink} ref={ref} {...props} sx={{
+    return (
+      <Link
+        component={NextLink}
+        ref={ref}
+        {...props}
+        sx={{
           fontFamily: inter.style.fontFamily,
           ...(props.sx || {}),
-        }} />;
+        }}
+      />
+    );
   }
 );
