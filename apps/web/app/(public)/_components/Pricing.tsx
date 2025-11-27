@@ -1,6 +1,5 @@
 "use client";
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
 import Chip from "@mui/material/Chip";
 import CardActions from "@mui/material/CardActions";
@@ -11,27 +10,29 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
 import CheckCircleRoundedIcon from "@mui/icons-material/CheckCircleRounded";
+import PaymentButton from "@/components/PaymentButton";
 
 const tiers = [
   {
     title: "Free",
     price: "0",
     description: [
-      "10 users included",
-      "2 GB of storage",
+      "1 user",
+      "1 GB of storage",
       "Help center access",
       "Email support",
     ],
     buttonText: "Sign up for free",
     buttonVariant: "outlined",
     buttonColor: "primary",
+    redirectLink: "/auth/signup",
   },
   {
-    title: "Professional",
+    title: "Pro",
     subheader: "Recommended",
     price: "15",
     description: [
-      "20 users included",
+      "5 users included",
       "10 GB of storage",
       "Help center access",
       "Priority email support",
@@ -51,9 +52,9 @@ const tiers = [
       "Help center access",
       "Phone & email support",
     ],
-    buttonText: "Contact us",
-    buttonVariant: "outlined",
-    buttonColor: "primary",
+    buttonText: "Get Enterprise",
+    buttonVariant: "contained",
+    buttonColor: "success",
   },
 ];
 
@@ -86,10 +87,8 @@ export default function Pricing() {
           Pricing
         </Typography>
         <Typography variant="body1" sx={{ color: "text.secondary" }}>
-          Quickly build an effective pricing table for your potential customers
-          with this layout. <br />
-          It&apos;s built with default Material UI components with little
-          customization.
+          Flexible plans designed to grow with you. <br />
+          Pay only for what you need. Upgrade when you’re ready.
         </Typography>
       </Box>
       <Grid
@@ -200,13 +199,16 @@ export default function Pricing() {
                 ))}
               </CardContent>
               <CardActions>
-                <Button
+                <PaymentButton
+                  title={tier.title}
+                  price={tier.price}
+                  redirectlink={tier.redirectLink}
                   fullWidth
                   variant={tier.buttonVariant as "outlined" | "contained"}
                   color={tier.buttonColor as "primary" | "secondary"}
                 >
                   {tier.buttonText}
-                </Button>
+                </PaymentButton>
               </CardActions>
             </Card>
           </Grid>
