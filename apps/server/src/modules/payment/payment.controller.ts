@@ -1,6 +1,6 @@
-import { asyncHandler } from "../../middlewares/asyncHandler.js";
+import asyncHandler from "express-async-handler"
 import { getRazorpay } from "./payment.service.js";
-import { RequestHandler } from "express";
+import { RequestHandler, Request, Response } from "express";
 import crypto from "node:crypto";
 
 const paymentOptions: Record<string, { amount: string }> = {
@@ -14,16 +14,18 @@ const paymentOptions: Record<string, { amount: string }> = {
 
 const razorpayInstance = getRazorpay();
 
-const createOrders: RequestHandler = asyncHandler(async (req, res) => {
+const createOrders: RequestHandler = asyncHandler(async (req: Request, res: Response) => {
   const { paymentOption } = req.body;
 
   if (!paymentOption || !paymentOptions[paymentOption]) {
-    return res.status(400).json({ message: "Invalid payment option" });
+    res.status(400).json({ message: "Invalid payment option" });
   }
 
   try {
+    const fetchedAmount = paymentOptions[paymentOption]?.amount;
+
     const options = {
-      amount: Number(paymentOptions[paymentOption].amount) * 100,
+      amount: Number(fetchedAmount) * 100,
       currency: "USD",
       receipt: "receipt_" + Math.random().toString(36).substring(5),
     };
@@ -36,9 +38,8 @@ const createOrders: RequestHandler = asyncHandler(async (req, res) => {
   }
 });
 
-const verifyPayments: RequestHandler = asyncHandler(async (req, res) => {
-  const { razorpay_order_id, razorpay_payment_id, razorpay_signature } =
-    req.body;
+const verifyPayments: RequestHandler = asyncHandler(async (req: Request, res: Response) => {
+  const { razorpay_order_id, razorpay_payment_id, razorpay_signature } = req.body;
 
   try {
     const generatedHmac = crypto.createHmac(

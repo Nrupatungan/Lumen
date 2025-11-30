@@ -1,65 +1,86 @@
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
+import api from "./lib/apiClient";
+import jwt from "jsonwebtoken";
+import { JWT } from "next-auth/jwt";
 
 const authResult = NextAuth({
   providers: [
     Credentials({
+      name: "Credentials",
       credentials: {
-        email: {
-          type: "email",
-          label: "Email",
-          placeholder: "johndoe@gmail.com",
-        },
-        password: {
-          type: "password",
-          label: "Password",
-          placeholder: "*****",
-        },
+        email: { label: "Email", type: "email" },
+        password: { label: "Password", type: "password" },
       },
 
-      // authorize: async (credentials) => {
-      //   const user = null
+      async authorize(credentials) {
+        const { email, password } = credentials ?? {};
 
-      //   const { email, password } = await signInSchema.parseAsync(credentials)
+        if (!email || !password) return null;
 
-      //   // logic to salt and hash password
-      //   // const pwHash = saltAndHashPassword(credentials.password)
+        try {
 
-      //   // logic to verify if the user exists
-      //   // user = await getUserFromDb(credentials.email, pwHash)
+          const res = await api.post("/auth/login", {email, password});
 
-      //   if (!user) {
-      //     // No user found, so this is their first attempt to login
-      //     // Optionally, this is also the place you could do a user registration
-      //     throw new Error("Invalid credentials.")
-      //   }
+          if (!res) return null;
 
-      //   // return user object with their profile data
-      //   return user
-      // },
+          const user = res.data.user;
+
+          return user;
+        } catch (err) {
+          console.error("Authorize Error:", err);
+          return null;
+        }
+      }
     }),
   ],
+
+  session: {
+    strategy: "jwt",
+  },
+  jwt: {
+    encode: async({token}) => {
+      return jwt.sign(token!, process.env.AUTH_SECRET!, {
+        algorithm: "HS256",
+      })
+    },
+
+    decode: async ({ token }) => {
+      try {
+        return jwt.verify(token!, process.env.AUTH_SECRET!, {
+          algorithms: ["HS256"]
+        }) as JWT;
+      } catch {
+        return null;
+      }
+    },
+  },
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
-        // const dbUser = await db.user.findUnique({
-        //   where: { email: user.email! },
-        // });
-        // token.role = dbUser?.role ?? "USER"; // fallback
+        token.id = user.id;
+        token.email = user.email;
+        token.name = user.name;
+        token.role = user.role;
       }
       return token;
     },
 
-    async session({ session }) {
-      if (session.user) {
-        // session.user.role = token.role; // Pass role to session
-      }
-      return session;
+      async session({ session, token }) {
+        if (session.user) {
+          session.user.id = token.id;
+          session.user.email = token.email;
+          session.user.name = token.name;
+          session.user.role = token.role;
+        }
+        return session;
     },
   },
+
+  secret: process.env.AUTH_SECRET,
 });
 
+export const auth: typeof authResult.auth = authResult.auth;
 export const handlers = authResult.handlers;
 export const signIn: typeof authResult.signIn = authResult.signIn;
 export const signOut = authResult.signOut;
-export const auth: typeof authResult.auth = authResult.auth;

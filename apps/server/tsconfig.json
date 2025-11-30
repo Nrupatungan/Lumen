@@ -7,8 +7,10 @@
     "module": "nodenext",
     "moduleResolution": "nodenext",
     "esModuleInterop": true,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "types": ["./types.d.ts"]
   },
+
   "include": ["src/**/*"],
   "exclude": ["node_modules", "dist", "coverage", "logs"]
 }

@@ -1,22 +1,30 @@
+import { connectDB } from "./lib/db.js";
 import e, { Express } from "express";
 import cors from "cors";
 import helmet from "helmet";
 
 const app: Express = e();
+const allowedOrigins = process.env.CORS_WHITELIST;
 
 app.use(e.json());
 app.use(e.urlencoded({ extended: true }));
 app.use(
   cors({
-    origin: process.env.CORS_URL,
-    credentials: true,
+    origin: (origin, callback) => {
+      if(!origin || allowedOrigins?.includes(origin)){
+        return callback(null, origin);
+      }
+      return callback(new Error("Not allowed by CORS"));
+    },
+    credentials: false,
   })
 );
 app.use(helmet());
 
-app.get("/", (_req, res) => {
-  res.status(200).send("Hello from Lumen!");
-});
+connectDB();
+
+import paymentRouter from "./modules/payment/payment.router.js";
+import authRouter from "./modules/auth/auth.router.js"
 
 app.get("/health", (_req, res) => {
   res.status(200).json({
@@ -26,12 +34,7 @@ app.get("/health", (_req, res) => {
   });
 });
 
-app.get("/api", (_req, res) => {
-  res.status(200).json({ message: "Lumen's API is running and rocking!!!!" });
-});
-
-import paymentRouter from "./modules/payment/payment.router.js";
-
 app.use("/api/v1/payments", paymentRouter);
+app.use("/api/v1/auth", authRouter);
 
 export default app;
