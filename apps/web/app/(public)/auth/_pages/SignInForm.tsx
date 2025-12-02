@@ -14,16 +14,19 @@ import { styled } from "@mui/material/styles";
 import Card from "@mui/material/Card";
 
 import ForgotPassword from "@/components/ForgotPassword";
-import { GoogleIcon, FacebookIcon, SitemarkIcon } from "@/components/CustomIcon";
+import {
+  GoogleIcon,
+  FacebookIcon,
+  SitemarkIcon,
+} from "@/components/CustomIcon";
 import ColorModeIconDropdown from "@/components/ColorModeDropdown";
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { loginSchema, LoginInput } from "@/lib/validators/auth.validator";
 import MuiNextLink from "@/components/MuiNextLink";
-import { signIn } from "@/auth";
 import { signInAction } from "@/app/actions/signin-action";
-
+import { CircularProgress } from "@mui/material";
 
 const SignInBackground = styled("div")(({ theme }) => ({
   position: "fixed",
@@ -53,28 +56,23 @@ export default function SignInForm() {
   const [success, setSuccess] = React.useState("");
   const [open, setOpen] = React.useState(false);
 
-  const {
-    register,
-    handleSubmit,
-    formState,
-    setError
-  } = useForm<LoginInput>({
+  const { register, handleSubmit, formState, setError } = useForm<LoginInput>({
     resolver: zodResolver(loginSchema),
   });
 
   const onSubmit = async (data: LoginInput) => {
     setLoading(true);
 
-    const res = await signInAction(data)
+    const res = await signInAction(data);
 
     setLoading(false);
     if (!res.success) {
       setError("root", { message: res.error });
     } else {
-      setSuccess(res.message)
-      setTimeout(()=> {
+      setSuccess(res.message);
+      setTimeout(() => {
         window.location.href = "/dashboard";
-      }, 2000)
+      }, 2000);
     }
   };
 
@@ -106,25 +104,28 @@ export default function SignInForm() {
 
           {/* Error message */}
           {formState.errors.root && (
-            <Typography color="error" 
-              sx={(theme) => (
-              { 
+            <Typography
+              color="error"
+              sx={(theme) => ({
                 mb: 1,
                 color: theme.palette.error.light,
-                fontWeight: '600'
+                fontWeight: "600",
               })}
-              >
+            >
               {formState.errors.root.message}
             </Typography>
           )}
 
           {/* Success message */}
           {formState.isSubmitSuccessful && (
-            <Typography color="success" sx={(theme) => ({
-              mb: 1,
-              color: theme.palette.success.light,
-              fontWeight: '600'
-            })}>
+            <Typography
+              color="success"
+              sx={(theme) => ({
+                mb: 1,
+                color: theme.palette.success.light,
+                fontWeight: "600",
+              })}
+            >
               {success}
             </Typography>
           )}
@@ -157,6 +158,9 @@ export default function SignInForm() {
                     "& .MuiInputBase-formControl": {
                       borderColor: "hsla(21.6, 11.7%, 76.5%, 0.6)",
                     },
+                    "& .MuiFormHelperText-root.Mui-error": {
+                      color: theme.palette.error.light,
+                    },
                   }),
                 })}
               />
@@ -183,6 +187,9 @@ export default function SignInForm() {
                     "& .MuiInputBase-formControl": {
                       borderColor: "hsla(21.6, 11.7%, 76.5%, 0.6)",
                     },
+                    "& .MuiFormHelperText-root.Mui-error": {
+                      color: theme.palette.error.light,
+                    },
                   }),
                 })}
               />
@@ -190,12 +197,15 @@ export default function SignInForm() {
 
             {/* Remember Me */}
             <FormControlLabel
-              control={<Checkbox value="remember" color="primary"
-                sx={(theme) => ({
-                      ...theme.applyStyles("dark", {
-                        borderColor: "hsla(218.6, 11.7%, 76.5%, 0.6)",
-                      }),
-                    })}  
+              control={
+                <Checkbox
+                  value="remember"
+                  color="primary"
+                  sx={(theme) => ({
+                    ...theme.applyStyles("dark", {
+                      borderColor: "hsla(218.6, 11.7%, 76.5%, 0.6)",
+                    }),
+                  })}
                 />
               }
               label="Remember me"
@@ -205,8 +215,27 @@ export default function SignInForm() {
             <ForgotPassword open={open} handleClose={() => setOpen(false)} />
 
             {/* Submit Button */}
-            <Button type="submit" fullWidth variant="contained" disabled={loading}>
-              {loading ? "Signing in..." : "Sign in"}
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              disabled={loading}
+              sx={(theme) => ({
+                "&:disabled": {
+                  color: theme.palette.info.contrastText,
+                },
+                ...theme.applyStyles("dark", {
+                  "&:disabled": {
+                    color: theme.palette.info.main,
+                  },
+                }),
+              })}
+            >
+              {loading ? (
+                <CircularProgress size={24} color="inherit" />
+              ) : (
+                "Sign in"
+              )}
             </Button>
 
             {/* Open Forgot Password Modal */}
@@ -217,17 +246,17 @@ export default function SignInForm() {
               variant="body2"
               underline="hover"
               sx={{
-                  alignSelf: "center",
-                  "&::before": {
-                    backgroundColor: "hsl(118, 98.4%, 47.8%)",
-                    opacity: "0.6",
-                    bottom: "-2px",
-                  },
-                  "&:hover": {
-                    textDecorationColor: "hsl(118, 98.4%, 47.8%)",
-                    textUnderlinePosition: "under",
-                  },
-                }}
+                alignSelf: "center",
+                "&::before": {
+                  backgroundColor: "hsl(118, 98.4%, 47.8%)",
+                  opacity: "0.6",
+                  bottom: "-2px",
+                },
+                "&:hover": {
+                  textDecorationColor: "hsl(118, 98.4%, 47.8%)",
+                  textUnderlinePosition: "under",
+                },
+              }}
             >
               Forgot your password?
             </MuiNextLink>
@@ -259,10 +288,11 @@ export default function SignInForm() {
 
             <Typography sx={{ textAlign: "center" }}>
               Don&apos;t have an account?{" "}
-              <MuiNextLink href="/auth/signup" 
-              variant="body2"
-              underline="hover"
-              sx={{
+              <MuiNextLink
+                href="/auth/signup"
+                variant="body2"
+                underline="hover"
+                sx={{
                   alignSelf: "center",
                   "&::before": {
                     backgroundColor: "hsl(118, 98.4%, 47.8%)",

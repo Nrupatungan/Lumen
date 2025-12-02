@@ -1,10 +1,8 @@
-import React from 'react'
-import VerifyEmail from '../_pages/VerifyEmail'
+import React from "react";
+import VerifyEmail from "../_pages/VerifyEmail";
 
-async function VerifyEmailPage(){
-  return (
-    <VerifyEmail/>
-  )
+async function VerifyEmailPage() {
+  return <VerifyEmail />;
 }
 
-export default VerifyEmailPage
+export default VerifyEmailPage;

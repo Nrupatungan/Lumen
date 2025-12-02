@@ -22,7 +22,14 @@ const SALT_ROUNDS = Number(process.env.SALT_ROUNDS || 10);
 const UserSchema: Schema<IUser> = new Schema(
   {
     name: { type: String, required: true, trim: true },
-    email: { type: String, required: true, unique: true, lowercase: true, trim: true, index: true },
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+      lowercase: true,
+      trim: true,
+      index: true,
+    },
     password: { type: String, required: true, select: false },
     role: { type: String, enum: ["admin", "user"], default: "user" },
     emailVerified: { type: Boolean, default: false },
@@ -57,5 +64,6 @@ UserSchema.methods.toJSON = function () {
   return obj;
 };
 
-const User: Model<IUser> = mongoose.models.User || mongoose.model<IUser>("User", UserSchema);
+const User: Model<IUser> =
+  mongoose.models.User || mongoose.model<IUser>("User", UserSchema);
 export default User;

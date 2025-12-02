@@ -12,7 +12,11 @@ import MuiNextLink from "@/components/MuiNextLink";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import { styled } from "@mui/material/styles";
-import { GoogleIcon, FacebookIcon, SitemarkIcon } from "@/components/CustomIcon";
+import {
+  GoogleIcon,
+  FacebookIcon,
+  SitemarkIcon,
+} from "@/components/CustomIcon";
 import ColorModeIconDropdown from "@/components/ColorModeDropdown";
 import Card from "@mui/material/Card";
 
@@ -20,6 +24,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { registerSchema, RegisterInput } from "@/lib/validators/auth.validator";
 import api from "@/lib/apiClient";
+import { CircularProgress } from "@mui/material";
 
 const SignUpBackground = styled("div")(({ theme }) => ({
   position: "fixed",
@@ -48,26 +53,22 @@ export default function SignUpForm() {
   const [loading, setLoading] = React.useState(false);
   const [success, setSuccess] = React.useState("");
 
-  const {
-    register,
-    handleSubmit,
-    formState,
-    setError
-  } = useForm<RegisterInput>({
-    resolver: zodResolver(registerSchema),
-  });
+  const { register, handleSubmit, formState, setError } =
+    useForm<RegisterInput>({
+      resolver: zodResolver(registerSchema),
+    });
 
   const onSubmit = async (data: RegisterInput) => {
     setLoading(true);
 
     try {
-      const res = await api.post("/auth/register", data)
+      const res = await api.post("/auth/register", data);
 
       if (!res) {
         setError("root", { message: "Email already in use" });
       } else {
         // Redirect or show success (your choice)
-        setSuccess(res.data.message)
+        setSuccess(res.data.message);
         // setTimeout(() => {
         //   window.location.href = "/auth/signin";
         // }, 2000)
@@ -98,7 +99,13 @@ export default function SignUpForm() {
           })}
         >
           {/* Header */}
-          <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
             <SitemarkIcon />
             <ColorModeIconDropdown />
           </Box>
@@ -109,25 +116,28 @@ export default function SignUpForm() {
 
           {/* Error message */}
           {formState.errors.root && (
-            <Typography color="error" 
-              sx={(theme) => (
-              { 
+            <Typography
+              color="error"
+              sx={(theme) => ({
                 mb: 1,
                 color: theme.palette.error.light,
-                fontWeight: '600'
+                fontWeight: "600",
               })}
-              >
+            >
               {formState.errors.root.message}
             </Typography>
           )}
-          
+
           {/* Success message */}
           {formState.isSubmitSuccessful && (
-            <Typography color="success" sx={(theme) => ({
-              mb: 1,
-              color: theme.palette.success.light,
-              fontWeight: '600'
-            })}>
+            <Typography
+              color="success"
+              sx={(theme) => ({
+                mb: 1,
+                color: theme.palette.success.light,
+                fontWeight: "600",
+              })}
+            >
               {success}
             </Typography>
           )}
@@ -140,12 +150,13 @@ export default function SignUpForm() {
           >
             {/* Full Name */}
             <FormControl>
-              <FormLabel htmlFor="name"
-              sx={(theme)=>({
-                ...theme.applyStyles('dark', {
-                  color: theme.palette.info.light
-                })
-              })}
+              <FormLabel
+                htmlFor="name"
+                sx={(theme) => ({
+                  ...theme.applyStyles("dark", {
+                    color: theme.palette.info.light,
+                  }),
+                })}
               >
                 Full name
               </FormLabel>
@@ -166,8 +177,8 @@ export default function SignUpForm() {
                       borderColor: "hsla(21.6, 11.7%, 76.5%, 0.6)",
                     },
                     "& .MuiFormHelperText-root.Mui-error": {
-                      color: theme.palette.error.light
-                    }
+                      color: theme.palette.error.light,
+                    },
                   }),
                 })}
               />
@@ -175,12 +186,13 @@ export default function SignUpForm() {
 
             {/* Email */}
             <FormControl>
-              <FormLabel htmlFor="email"
-              sx={(theme)=>({
-                ...theme.applyStyles('dark', {
-                  color: theme.palette.info.light
-                })
-              })}
+              <FormLabel
+                htmlFor="email"
+                sx={(theme) => ({
+                  ...theme.applyStyles("dark", {
+                    color: theme.palette.info.light,
+                  }),
+                })}
               >
                 Email
               </FormLabel>
@@ -201,8 +213,8 @@ export default function SignUpForm() {
                       borderColor: "hsla(21.6, 11.7%, 76.5%, 0.6)",
                     },
                     "& .MuiFormHelperText-root.Mui-error": {
-                      color: theme.palette.error.light
-                    }
+                      color: theme.palette.error.light,
+                    },
                   }),
                 })}
               />
@@ -210,12 +222,13 @@ export default function SignUpForm() {
 
             {/* Password */}
             <FormControl>
-              <FormLabel htmlFor="password"
-              sx={(theme)=>({
-                ...theme.applyStyles('dark', {
-                  color: theme.palette.info.light
-                })
-              })}
+              <FormLabel
+                htmlFor="password"
+                sx={(theme) => ({
+                  ...theme.applyStyles("dark", {
+                    color: theme.palette.info.light,
+                  }),
+                })}
               >
                 Password
               </FormLabel>
@@ -237,8 +250,8 @@ export default function SignUpForm() {
                       borderColor: "hsla(21.6, 11.7%, 76.5%, 0.6)",
                     },
                     "& .MuiFormHelperText-root.Mui-error": {
-                      color: theme.palette.error.light
-                    }
+                      color: theme.palette.error.light,
+                    },
                   }),
                 })}
               />
@@ -246,20 +259,31 @@ export default function SignUpForm() {
 
             {/* Optional subscribe */}
             <FormControlLabel
-              control={<Checkbox color="primary" 
-                sx={(theme) => ({
+              control={
+                <Checkbox
+                  color="primary"
+                  sx={(theme) => ({
                     ...theme.applyStyles("dark", {
                       borderColor: "hsla(218.6, 11.7%, 76.5%, 0.6)",
                     }),
-                  })} 
+                  })}
                 />
               }
               label="I want to receive updates via email."
             />
 
             {/* Submit */}
-            <Button type="submit" variant="contained" fullWidth disabled={loading}>
-              {loading ? "Signing up..." : "Sign up"}
+            <Button
+              type="submit"
+              variant="contained"
+              fullWidth
+              disabled={loading}
+            >
+              {loading ? (
+                <CircularProgress size={24} color="inherit" />
+              ) : (
+                "Sign up"
+              )}
             </Button>
           </Box>
 
@@ -278,10 +302,11 @@ export default function SignUpForm() {
 
             <Typography sx={{ textAlign: "center" }}>
               Already have an account?{" "}
-              <MuiNextLink href="/auth/signin" 
-              variant="body2"
-              underline="hover"
-              sx={{
+              <MuiNextLink
+                href="/auth/signin"
+                variant="body2"
+                underline="hover"
+                sx={{
                   alignSelf: "center",
                   "&::before": {
                     backgroundColor: "hsl(118, 98.4%, 47.8%)",

@@ -11,7 +11,7 @@ app.use(e.urlencoded({ extended: true }));
 app.use(
   cors({
     origin: (origin, callback) => {
-      if(!origin || allowedOrigins?.includes(origin)){
+      if (!origin || allowedOrigins?.includes(origin)) {
         return callback(null, origin);
       }
       return callback(new Error("Not allowed by CORS"));
@@ -24,7 +24,7 @@ app.use(helmet());
 connectDB();
 
 import paymentRouter from "./modules/payment/payment.router.js";
-import authRouter from "./modules/auth/auth.router.js"
+import authRouter from "./modules/auth/auth.router.js";
 
 app.get("/health", (_req, res) => {
   res.status(200).json({

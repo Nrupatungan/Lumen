@@ -1,4 +1,3 @@
-"use client";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import Chip from "@mui/material/Chip";
@@ -11,6 +10,7 @@ import Typography from "@mui/material/Typography";
 import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
 import CheckCircleRoundedIcon from "@mui/icons-material/CheckCircleRounded";
 import PaymentButton from "@/components/PaymentButton";
+import { auth } from "@/auth";
 
 const tiers = [
   {
@@ -58,7 +58,9 @@ const tiers = [
   },
 ];
 
-export default function Pricing() {
+export default async function Pricing() {
+  const session = await auth();
+
   return (
     <Container
       id="pricing"
@@ -200,6 +202,7 @@ export default function Pricing() {
               </CardContent>
               <CardActions>
                 <PaymentButton
+                  session={session}
                   title={tier.title}
                   price={tier.price}
                   redirectlink={tier.redirectLink}

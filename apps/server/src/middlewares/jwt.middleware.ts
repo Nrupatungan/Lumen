@@ -15,11 +15,11 @@ export function authenticateToken(
     return res.status(401).json({ message: "No token provided" });
   }
 
-  const decoded = verifyJwt<any>(token);
+  const decoded = verifyJwt(token);
   if (!decoded) {
     return res.status(401).json({ message: "Invalid or expired token" });
   }
 
-  req.user = decoded; // after augmentation, this is typed correctly
+  req.user = decoded;
   next();
 }

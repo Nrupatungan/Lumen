@@ -1,6 +1,13 @@
 // routes/auth.routes.ts
 import { Router } from "express";
-import { register, login, verifyEmail, requestPasswordReset, resetPassword, getProfile } from "../auth/auth.controller.js";
+import {
+  register,
+  login,
+  verifyEmail,
+  requestPasswordReset,
+  resetPassword,
+  getProfile,
+} from "../auth/auth.controller.js";
 import { authenticateToken } from "../../middlewares/jwt.middleware.js";
 
 const router: Router = Router();

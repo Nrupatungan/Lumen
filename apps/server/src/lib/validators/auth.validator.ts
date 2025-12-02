@@ -25,5 +25,7 @@ export const resetPasswordSchema = z.object({
 // types
 export type RegisterInput = z.infer<typeof registerSchema>;
 export type LoginInput = z.infer<typeof loginSchema>;
-export type RequestPasswordResetInput = z.infer<typeof requestPasswordResetSchema>;
+export type RequestPasswordResetInput = z.infer<
+  typeof requestPasswordResetSchema
+>;
 export type ResetPasswordInput = z.infer<typeof resetPasswordSchema>;

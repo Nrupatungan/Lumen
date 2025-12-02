@@ -6,6 +6,7 @@ import MuiNextLink from "./MuiNextLink";
 import { useRouter } from "next/navigation";
 import { INormalizeError } from "razorpay/dist/types/api";
 import { Orders } from "razorpay/dist/types/orders";
+import { Session } from "next-auth";
 
 function loadScript(src: string) {
   return new Promise((resolve) => {
@@ -25,6 +26,7 @@ interface PaymentButtonProps extends ButtonProps {
   title: string;
   price: string;
   redirectlink?: string;
+  session: Session | null;
 }
 
 export interface RazorpayResponse {
@@ -37,6 +39,11 @@ function PaymentButton(props: PaymentButtonProps) {
   const router = useRouter();
 
   async function displayRazorpay() {
+    if (!props.session?.user) {
+      router.push("/auth/signin");
+      return;
+    }
+
     const res = await loadScript(
       "https://checkout.razorpay.com/v1/checkout.js"
     );

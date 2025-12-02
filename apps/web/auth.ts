@@ -19,8 +19,7 @@ const authResult = NextAuth({
         if (!email || !password) return null;
 
         try {
-
-          const res = await api.post("/auth/login", {email, password});
+          const res = await api.post("/auth/login", { email, password });
 
           if (!res) return null;
 
@@ -31,7 +30,7 @@ const authResult = NextAuth({
           console.error("Authorize Error:", err);
           return null;
         }
-      }
+      },
     }),
   ],
 
@@ -39,16 +38,16 @@ const authResult = NextAuth({
     strategy: "jwt",
   },
   jwt: {
-    encode: async({token}) => {
+    encode: async ({ token }) => {
       return jwt.sign(token!, process.env.AUTH_SECRET!, {
         algorithm: "HS256",
-      })
+      });
     },
 
     decode: async ({ token }) => {
       try {
         return jwt.verify(token!, process.env.AUTH_SECRET!, {
-          algorithms: ["HS256"]
+          algorithms: ["HS256"],
         }) as JWT;
       } catch {
         return null;
@@ -66,14 +65,14 @@ const authResult = NextAuth({
       return token;
     },
 
-      async session({ session, token }) {
-        if (session.user) {
-          session.user.id = token.id;
-          session.user.email = token.email;
-          session.user.name = token.name;
-          session.user.role = token.role;
-        }
-        return session;
+    async session({ session, token }) {
+      if (session.user) {
+        session.user.id = token.id;
+        session.user.email = token.email;
+        session.user.name = token.name;
+        session.user.role = token.role;
+      }
+      return session;
     },
   },
 

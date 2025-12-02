@@ -9,7 +9,12 @@ const VERIFICATION_TOKEN_TTL_MS = 1000 * 60 * 60 * 24; // 24 hours
 const PASSWORD_RESET_TOKEN_TTL_MS = 1000 * 60 * 60; // 1 hour
 
 export class UserService {
-  static async createUser(data: { name: string; email: string; password: string; image?: string }) {
+  static async createUser(data: {
+    name: string;
+    email: string;
+    password: string;
+    image?: string;
+  }) {
     const user = await User.create({
       name: data.name,
       email: data.email,
@@ -33,7 +38,7 @@ export class UserService {
     // include password field
     const user = await User.findOne({ email }).select("+password");
     if (!user) return null;
-    if(!user.emailVerified) return null;
+    if (!user.emailVerified) return null;
     const isValid = await user.comparePassword(password);
     if (!isValid) return null;
     return user?.toJSON();
@@ -41,7 +46,11 @@ export class UserService {
 
   static async createJwtForUser(user: IUser) {
     // include role and id in token payload
-    const payload = { id: user._id.toString(), role: user.role, email: user.email };
+    const payload = {
+      id: user._id.toString(),
+      role: user.role,
+      email: user.email,
+    };
     return signJwt(payload, process.env.JWT_EXPIRES_IN || "7d");
   }
 

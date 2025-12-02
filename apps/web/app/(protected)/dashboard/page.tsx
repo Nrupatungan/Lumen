@@ -5,12 +5,11 @@ import React from "react";
 async function DashboardPage() {
   const session = await auth();
 
-  if(!session?.user) {
+  if (!session?.user) {
     redirect("/auth/sigin");
   }
 
   return <div>DashboardPage</div>;
-
 }
 
 export default DashboardPage;

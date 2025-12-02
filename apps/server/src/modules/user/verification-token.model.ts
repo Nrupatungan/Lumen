@@ -22,6 +22,10 @@ const VerificationTokenSchema: Schema<IVerificationToken> = new Schema(
 VerificationTokenSchema.index({ expiresAt: 1 }, { expireAfterSeconds: 0 });
 
 const VerificationToken: Model<IVerificationToken> =
-  mongoose.models.VerificationToken || mongoose.model<IVerificationToken>("VerificationToken", VerificationTokenSchema);
+  mongoose.models.VerificationToken ||
+  mongoose.model<IVerificationToken>(
+    "VerificationToken",
+    VerificationTokenSchema
+  );
 
 export default VerificationToken;

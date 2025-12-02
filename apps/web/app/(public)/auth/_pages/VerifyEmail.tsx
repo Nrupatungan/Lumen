@@ -16,7 +16,9 @@ import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import ErrorIcon from "@mui/icons-material/Error";
 
 export default function VerifyEmail() {
-  const [status, setStatus] = useState<"loading" | "success" | "error">("loading");
+  const [status, setStatus] = useState<"loading" | "success" | "error">(
+    "loading"
+  );
   const [message, setMessage] = useState("Verifying your email...");
   const searchParams = useSearchParams();
   const token = searchParams.get("token");
@@ -51,10 +53,10 @@ export default function VerifyEmail() {
         px: 2,
         backgroundImage:
           "radial-gradient(ellipse at 50% 50%, hsl(210, 100%, 92%), hsl(0, 0%, 100%))",
-          ...theme.applyStyles("dark", {
+        ...theme.applyStyles("dark", {
           backgroundImage:
             "radial-gradient(at 50% 50%, hsla(210, 100%, 20%, 0.5), hsl(220, 30%, 50%))",
-        },)
+        }),
       })}
     >
       <Card
