@@ -1,8 +1,19 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    experimental: {
-    globalNotFound: true,
-  },
+    images: {
+        remotePatterns: [
+            {
+                protocol: "https",
+                hostname: "avatars.githubusercontent.com",
+                pathname: "/u/**"
+            },
+            {
+                protocol: "https",
+                hostname: "lh3.googleusercontent.com",
+                pathname: "/**"
+            }
+        ]
+    }
 };
 
 export default nextConfig;

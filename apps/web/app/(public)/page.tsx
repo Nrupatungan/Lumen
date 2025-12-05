@@ -1,30 +1,37 @@
-import * as React from "react";
-import Container from "@mui/material/Container";
-import Typography from "@mui/material/Typography";
-import Box from "@mui/material/Box";
-import MuiNextLink from "@/components/MuiNextLink";
-import ModeSwitch from "@/components/ModeSwitch";
+import CssBaseline from "@mui/material/CssBaseline";
+import Divider from "@mui/material/Divider";
+import AppTheme from "@/components/theme/theme";
+import AppAppBar from "@/app/(public)/_components/AppAppBar";
+import Hero from "@/app/(public)/_components/Hero";
+import LogoCollection from "@/app/(public)/_components/LogoCollection";
+import Highlights from "@/app/(public)/_components/Highlights";
+import Pricing from "@/app/(public)/_components/Pricing";
+import Features from "@/app/(public)/_components/Features";
+import Testimonials from "@/app/(public)/_components/Testimonials";
+import FAQ from "@/app/(public)/_components/FAQ";
+import Footer from "@/app/(public)/_components/Footer";
 
 export default function Home() {
   return (
-    <Container maxWidth="md">
-      <ModeSwitch sx={{ position: "fixed", top: "1rem", right: "1rem" }} />
-      <Box
-        sx={{
-          my: 4,
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <Typography variant="h4" component="h1" sx={{ mb: 2 }}>
-          Material UI - Next.js App Router example in TypeScript
-        </Typography>
-        <MuiNextLink href="/about" color="secondary">
-          Go to the about page
-        </MuiNextLink>
-      </Box>
-    </Container>
+    <AppTheme>
+      <CssBaseline enableColorScheme />
+
+      <AppAppBar />
+      <Hero />
+      <div>
+        <LogoCollection />
+        <Features />
+        <Divider />
+        <Testimonials />
+        <Divider />
+        <Highlights />
+        <Divider />
+        <Pricing />
+        <Divider />
+        <FAQ />
+        <Divider />
+        <Footer />
+      </div>
+    </AppTheme>
   );
 }

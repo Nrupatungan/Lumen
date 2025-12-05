@@ -1,12 +1,8 @@
+// server.ts
 import app from "./app.js";
 
-if (process.env.NODE_ENV !== "production") {
-  const { config } = await import("dotenv");
-  config();
-}
+const PORT = Number(process.env.PORT) || 3001;
 
-const PORT = process.env.PORT;
-
-app.listen(PORT, () => {
-  console.log(`Listening on http://localhost:${PORT}`);
+app.listen(PORT, "0.0.0.0", () => {
+  console.log(`Server running on PORT: ${PORT}`);
 });
