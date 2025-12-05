@@ -11,7 +11,6 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      # Make mongodb-memory-server fast & stable on CI
       MONGOMS_VERSION: "7.0.5"
       MONGOMS_DOWNLOAD_DIR: ~/.cache/mongodb-binaries
       TURBO_TELEMETRY_DISABLED: 1
@@ -22,23 +21,29 @@ jobs:
         with:
           fetch-depth: 1
 
+      # ------------------------------
+      # Install Node
+      # ------------------------------
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 24
           check-latest: true
-          cache: pnpm
+          # ❗ Fix: do NOT use pnpm cache here
+          cache: 'npm'
 
+      # ------------------------------
+      # Enable pnpm
+      # ------------------------------
       - name: Enable pnpm via corepack
         run: |
-          corepack enable pnpm
-          corepack use pnpm@latest-10
+          corepack enable
+          corepack prepare pnpm@latest-10 --activate
           pnpm --version
 
       # ------------------------------
       # Cache pnpm store
       # ------------------------------
-
       - name: Determine pnpm store path
         id: pnpm-store
         run: echo "STORE_PATH=$(pnpm store path)" >> "$GITHUB_OUTPUT"
@@ -54,7 +59,6 @@ jobs:
       # ------------------------------
       # Cache MongoDB binaries
       # ------------------------------
-
       - name: Cache MongoDB binaries
         uses: actions/cache@v4
         with:
@@ -64,9 +68,8 @@ jobs:
             mongodb-${{ runner.os }}-
 
       # ------------------------------
-      # Cache turbo (makes build + test fast)
+      # Cache Turbo
       # ------------------------------
-
       - name: Cache Turbo
         uses: actions/cache@v4
         with:
@@ -76,9 +79,8 @@ jobs:
             turbo-${{ runner.os }}-
 
       # ------------------------------
-      # pnpm deps
+      # pnpm install
       # ------------------------------
-
       - name: Fetch dependencies
         run: pnpm fetch
 
@@ -88,7 +90,6 @@ jobs:
       # ------------------------------
       # Static analysis
       # ------------------------------
-
       - name: Type Check
         run: pnpm check-types
 
@@ -101,13 +102,11 @@ jobs:
       # ------------------------------
       # Tests
       # ------------------------------
-
       - name: Run tests
         run: pnpm test
 
       # ------------------------------
       # Build
       # ------------------------------
-
       - name: Build
         run: pnpm build
