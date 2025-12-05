@@ -4,6 +4,10 @@ export interface IVerificationToken extends Document {
   identifier?: string;
   token: string;
   expires: Date;
+
+  // FIX: Added timestamps to the interface
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 const VerificationTokenSchema = new Schema<IVerificationToken>(

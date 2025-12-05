@@ -5,6 +5,9 @@ export interface IPasswordResetToken extends Document {
   userId: mongoose.Types.ObjectId;
   token: string;
   expires: Date;
+
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 const PasswordResetTokenSchema = new Schema<IPasswordResetToken>(

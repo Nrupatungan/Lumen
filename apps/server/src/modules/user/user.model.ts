@@ -10,6 +10,9 @@ export interface IUser extends Document {
   emailVerified?: Date | null;
   image?: string;
 
+  createdAt: Date;
+  updatedAt: Date;
+
   // eslint-disable-next-line no-unused-vars
   comparePassword(password: string): Promise<boolean>;
 }
@@ -41,7 +44,6 @@ UserSchema.methods.comparePassword = function (password: string) {
   if (!this.password) return Promise.resolve(false);
   return bcrypt.compare(password, this.password);
 };
-
 
 const User = mongoose.model<IUser>("User", UserSchema);
 export default User;

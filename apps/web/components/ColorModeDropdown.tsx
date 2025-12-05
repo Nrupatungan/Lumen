@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import DarkModeIcon from "@mui/icons-material/DarkModeRounded";
 import LightModeIcon from "@mui/icons-material/LightModeRounded";
 import Box from "@mui/material/Box";
@@ -11,20 +11,24 @@ export default function ColorModeIconDropdown(props: IconButtonOwnProps) {
   const { mode, systemMode, setMode } = useColorScheme();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
+
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
+
   const handleClose = () => {
     setAnchorEl(null);
   };
+
   const handleMode = (targetMode: "system" | "light" | "dark") => () => {
     setMode(targetMode);
     handleClose();
   };
+
   if (!mode) {
     return (
       <Box
-        data-screenshot="toggle-mode"
+        data-testid="mode-placeholder"
         sx={(theme) => ({
           verticalAlign: "bottom",
           display: "inline-flex",
@@ -37,15 +41,17 @@ export default function ColorModeIconDropdown(props: IconButtonOwnProps) {
       />
     );
   }
+
   const resolvedMode = (systemMode || mode) as "light" | "dark";
+
   const icon = {
     light: <LightModeIcon />,
     dark: <DarkModeIcon />,
   }[resolvedMode];
+
   return (
     <React.Fragment>
       <IconButton
-        data-screenshot="toggle-mode"
         onClick={handleClick}
         disableRipple
         size="small"
@@ -66,9 +72,7 @@ export default function ColorModeIconDropdown(props: IconButtonOwnProps) {
           paper: {
             variant: "outlined",
             elevation: 0,
-            sx: {
-              my: "4px",
-            },
+            sx: { my: "4px" },
           },
         }}
         transformOrigin={{ horizontal: "right", vertical: "top" }}

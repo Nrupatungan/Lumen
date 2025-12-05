@@ -9,10 +9,10 @@ export default async function AdminLayout({
 
   if (session?.user.role !== "admin") {
     return (
-        <>
-            <h1>You are not authorized to use this page.</h1>
-        </>
-    )
+      <>
+        <h1>You are not authorized to use this page.</h1>
+      </>
+    );
   }
 
   return <>{children}</>;

@@ -16,3 +16,12 @@ export async function teardownTestDB() {
   await mongoose.connection.close();
   if (mongod) await mongod.stop();
 }
+
+export async function clearDatabase() {
+  const collections = mongoose.connection.collections;
+  const collectionList = Object.values(collections);
+
+  for (const collection of collectionList) {
+    await collection.deleteMany({});
+  }
+}

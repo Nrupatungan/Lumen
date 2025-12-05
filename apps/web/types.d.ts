@@ -33,7 +33,7 @@ declare module "next-auth" {
       name: string;
       role: "admin" | "user";
       image: string;
-    }
+    };
   }
 }
 

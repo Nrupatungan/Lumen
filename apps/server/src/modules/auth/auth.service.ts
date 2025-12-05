@@ -9,7 +9,6 @@ const EMAIL_VERIFY_TTL = 1000 * 60 * 60 * 24; // 24h
 const PASSWORD_RESET_TTL = 1000 * 60 * 60; // 1h
 
 export class AuthService {
-
   /** Validate credentials from Credentials Provider */
   static async verifyCredentials(email: string, password: string) {
     const user = await User.findOne({ email }).select("+password");
@@ -41,7 +40,7 @@ export class AuthService {
   static async verifyEmailToken(token: string) {
     const record = await VerificationToken.findOne({ token });
     if (!record) return false;
-    
+
     if (record.expires < new Date()) {
       await record.deleteOne();
       return false;

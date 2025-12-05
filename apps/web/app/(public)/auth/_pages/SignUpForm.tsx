@@ -12,11 +12,7 @@ import MuiNextLink from "@/components/MuiNextLink";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import { styled } from "@mui/material/styles";
-import {
-  GoogleIcon,
-  GithubIcon,
-  SitemarkIcon,
-} from "@/components/CustomIcon";
+import { GoogleIcon, GithubIcon, SitemarkIcon } from "@/components/CustomIcon";
 import ColorModeIconDropdown from "@/components/ColorModeDropdown";
 import Card from "@mui/material/Card";
 
@@ -295,23 +291,23 @@ export default function SignUpForm() {
           {/* OAuth Buttons */}
           <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
             <Button
-             fullWidth 
-             variant="outlined" 
-             startIcon={<GoogleIcon />}
-             onClick={async() => {
-              await OAuthLogin("google")
-             }}
+              fullWidth
+              variant="outlined"
+              startIcon={<GoogleIcon />}
+              onClick={async () => {
+                await OAuthLogin("google");
+              }}
             >
               Sign up with Google
             </Button>
 
-            <Button 
-            fullWidth 
-            variant="outlined" 
-            startIcon={<GithubIcon />}
-            onClick={async() => {
-              await OAuthLogin("github")
-            }}
+            <Button
+              fullWidth
+              variant="outlined"
+              startIcon={<GithubIcon />}
+              onClick={async () => {
+                await OAuthLogin("github");
+              }}
             >
               Sign up with Github
             </Button>

@@ -11,6 +11,9 @@ export interface IAccount extends Document {
   refresh_token?: string;
   id_token?: string;
   expires_at?: number;
+
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 const accountSchema = new Schema<IAccount>(
@@ -31,7 +34,6 @@ const accountSchema = new Schema<IAccount>(
 accountSchema.index({ provider: 1, providerAccountId: 1 }, { unique: true });
 
 const Account: Model<IAccount> =
-  mongoose.models.Account ||
-  mongoose.model<IAccount>("Account", accountSchema);
+  mongoose.models.Account || mongoose.model<IAccount>("Account", accountSchema);
 
 export default Account;

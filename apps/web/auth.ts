@@ -112,9 +112,9 @@ const authResult = NextAuth({
      */
     async session({ session, token }) {
       if (session.user) {
-        session.user.id = token.id; 
-        session.user.email = token.email; 
-        session.user.name = token.name; 
+        session.user.id = token.id;
+        session.user.email = token.email;
+        session.user.name = token.name;
         session.user.role = token.role;
         session.user.image = token.picture;
       }

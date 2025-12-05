@@ -20,7 +20,7 @@ const createOrders: RequestHandler = asyncHandler(
 
     if (!paymentOption || !paymentOptions[paymentOption]) {
       res.status(400).json({ message: "Invalid payment option" });
-      return
+      return;
     }
 
     try {

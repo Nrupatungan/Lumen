@@ -13,12 +13,8 @@ import Typography from "@mui/material/Typography";
 import { styled } from "@mui/material/styles";
 import Card from "@mui/material/Card";
 
-import ForgotPassword from "@/components/ForgotPassword";
-import {
-  GoogleIcon,
-  GithubIcon,
-  SitemarkIcon,
-} from "@/components/CustomIcon";
+import ForgotPassword from "@/app/(public)/_components/ForgotPassword";
+import { GoogleIcon, GithubIcon, SitemarkIcon } from "@/components/CustomIcon";
 import ColorModeIconDropdown from "@/components/ColorModeDropdown";
 
 import { useForm } from "react-hook-form";
@@ -273,8 +269,8 @@ export default function SignInForm() {
               fullWidth
               variant="outlined"
               startIcon={<GoogleIcon />}
-              onClick={async() => {
-                await OAuthLogin("google")
+              onClick={async () => {
+                await OAuthLogin("google");
               }}
             >
               Sign in with Google
@@ -284,8 +280,8 @@ export default function SignInForm() {
               fullWidth
               variant="outlined"
               startIcon={<GithubIcon />}
-              onClick={async() => {
-                await OAuthLogin("github")
+              onClick={async () => {
+                await OAuthLogin("github");
               }}
             >
               Sign in with Github

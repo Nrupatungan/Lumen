@@ -7,7 +7,7 @@ export const registerSchema = z.object({
   password: z.string().min(6, "Password too short (min 6)"),
   image: z.url().optional(),
   role: z.enum(["user", "admin"]).default("user"),
-  emailVerified: z.date().optional()
+  emailVerified: z.date().optional(),
 });
 
 export const loginSchema = z.object({
@@ -21,7 +21,7 @@ export const oauthLoginSchema = z.object({
   email: z.email("Invalid email"),
   name: z.string().min(1, "Name is required"),
   image: z.url().optional(),
-})
+});
 
 export const requestPasswordResetSchema = z.object({
   email: z.email("Invalid email"),

@@ -63,7 +63,7 @@ export const login: RequestHandler = asyncHandler(async (req, res) => {
 
 export const oauthLogin: RequestHandler = asyncHandler(async (req, res) => {
   const parsed = oauthLoginSchema.parse(req.body);
-  const {provider, providerAccountId, email, name, image} = parsed;
+  const { provider, providerAccountId, email, name, image } = parsed;
 
   if (!provider || !providerAccountId) {
     res.status(400).json({ message: "Invalid OAuth payload" });
@@ -82,13 +82,15 @@ export const oauthLogin: RequestHandler = asyncHandler(async (req, res) => {
     user = await UserService.findByEmail(email);
 
     if (!user) {
-      user = (await User.create({
-        email,
-        name,
-        image,
-        emailVerified: new Date(),
-        role: "user",
-      })).toJSON();
+      user = (
+        await User.create({
+          email,
+          name,
+          image,
+          emailVerified: new Date(),
+          role: "user",
+        })
+      ).toJSON();
     }
 
     // Create OAuth account link
@@ -113,10 +115,10 @@ export const oauthLogin: RequestHandler = asyncHandler(async (req, res) => {
 
 export const verifyEmail: RequestHandler = asyncHandler(async (req, res) => {
   const token = req.body.token ?? req.query.token;
-  if (!token){
+  if (!token) {
     res.status(400).json({ message: "Token required" });
     return;
-  } 
+  }
 
   const ok = await AuthService.verifyEmailToken(String(token));
   if (!ok) {
