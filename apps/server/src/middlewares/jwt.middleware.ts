@@ -1,25 +1,29 @@
+import jwt from "jsonwebtoken";
 import { Request, Response, NextFunction } from "express";
-import { verifyJwt } from "../utils/jwt.js";
 
-export function authenticateToken(
+export function authenticateJWT(
   req: Request,
   res: Response,
   next: NextFunction
 ) {
-  const authHeader = req.headers["authorization"];
-  const token = authHeader?.startsWith("Bearer ")
-    ? authHeader.split(" ")[1]
-    : null;
+  const header = req.headers.authorization;
+  const token = header?.startsWith("Bearer ") ? header.split(" ")[1] : null;
 
-  if (!token) {
-    return res.status(401).json({ message: "No token provided" });
+  if (!token) return res.status(401).json({ message: "No token provided" });
+
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET!);
+
+    req.user = decoded as {
+      id: string;
+      name: string;
+      role: "admin" | "user";
+      email: string;
+    };
+
+    next();
+  } catch (err) {
+    console.error(err);
+    return res.status(401).json({ message: "Invalid token" });
   }
-
-  const decoded = verifyJwt(token);
-  if (!decoded) {
-    return res.status(401).json({ message: "Invalid or expired token" });
-  }
-
-  req.user = decoded;
-  next();
 }

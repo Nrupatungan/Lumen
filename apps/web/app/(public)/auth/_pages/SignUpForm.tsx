@@ -14,7 +14,7 @@ import Typography from "@mui/material/Typography";
 import { styled } from "@mui/material/styles";
 import {
   GoogleIcon,
-  FacebookIcon,
+  GithubIcon,
   SitemarkIcon,
 } from "@/components/CustomIcon";
 import ColorModeIconDropdown from "@/components/ColorModeDropdown";
@@ -25,6 +25,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { registerSchema, RegisterInput } from "@/lib/validators/auth.validator";
 import api from "@/lib/apiClient";
 import { CircularProgress } from "@mui/material";
+import { OAuthLogin } from "@/actions/oauth-action";
 
 const SignUpBackground = styled("div")(({ theme }) => ({
   position: "fixed",
@@ -293,11 +294,26 @@ export default function SignUpForm() {
 
           {/* OAuth Buttons */}
           <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-            <Button fullWidth variant="outlined" startIcon={<GoogleIcon />}>
+            <Button
+             fullWidth 
+             variant="outlined" 
+             startIcon={<GoogleIcon />}
+             onClick={async() => {
+              await OAuthLogin("google")
+             }}
+            >
               Sign up with Google
             </Button>
-            <Button fullWidth variant="outlined" startIcon={<FacebookIcon />}>
-              Sign up with Facebook
+
+            <Button 
+            fullWidth 
+            variant="outlined" 
+            startIcon={<GithubIcon />}
+            onClick={async() => {
+              await OAuthLogin("github")
+            }}
+            >
+              Sign up with Github
             </Button>
 
             <Typography sx={{ textAlign: "center" }}>

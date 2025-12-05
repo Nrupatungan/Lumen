@@ -16,7 +16,7 @@ import Card from "@mui/material/Card";
 import ForgotPassword from "@/components/ForgotPassword";
 import {
   GoogleIcon,
-  FacebookIcon,
+  GithubIcon,
   SitemarkIcon,
 } from "@/components/CustomIcon";
 import ColorModeIconDropdown from "@/components/ColorModeDropdown";
@@ -25,8 +25,9 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { loginSchema, LoginInput } from "@/lib/validators/auth.validator";
 import MuiNextLink from "@/components/MuiNextLink";
-import { signInAction } from "@/app/actions/signin-action";
+import { signInAction } from "@/actions/signin-action";
 import { CircularProgress } from "@mui/material";
+import { OAuthLogin } from "@/actions/oauth-action";
 
 const SignInBackground = styled("div")(({ theme }) => ({
   position: "fixed",
@@ -272,7 +273,9 @@ export default function SignInForm() {
               fullWidth
               variant="outlined"
               startIcon={<GoogleIcon />}
-              onClick={() => alert("Google Sign-in coming soon")}
+              onClick={async() => {
+                await OAuthLogin("google")
+              }}
             >
               Sign in with Google
             </Button>
@@ -280,10 +283,12 @@ export default function SignInForm() {
             <Button
               fullWidth
               variant="outlined"
-              startIcon={<FacebookIcon />}
-              onClick={() => alert("Facebook Sign-in coming soon")}
+              startIcon={<GithubIcon />}
+              onClick={async() => {
+                await OAuthLogin("github")
+              }}
             >
-              Sign in with Facebook
+              Sign in with Github
             </Button>
 
             <Typography sx={{ textAlign: "center" }}>

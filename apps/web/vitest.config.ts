@@ -5,7 +5,7 @@ import path from "path";
 export default mergeConfig(uiConfig, {
   test: {
     setupFiles: "./tests/setup.ts",
-    include: ["./**/*.{test,spec}.{ts,tsx}"],
+    include: ["./**/*.{test,spec}.{ts,tsx,js,tsx}"],
   },
   resolve: {
     alias: {

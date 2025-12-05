@@ -1,7 +1,7 @@
-import asyncHandler from "express-async-handler";
 import { getRazorpay } from "./payment.service.js";
 import { RequestHandler, Request, Response } from "express";
 import crypto from "node:crypto";
+import { asyncHandler } from "../../utils/asyncHandler.js";
 
 const paymentOptions: Record<string, { amount: string }> = {
   Pro: {
@@ -20,6 +20,7 @@ const createOrders: RequestHandler = asyncHandler(
 
     if (!paymentOption || !paymentOptions[paymentOption]) {
       res.status(400).json({ message: "Invalid payment option" });
+      return
     }
 
     try {

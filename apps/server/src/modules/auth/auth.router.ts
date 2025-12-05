@@ -1,4 +1,3 @@
-// routes/auth.routes.ts
 import { Router } from "express";
 import {
   register,
@@ -6,20 +5,21 @@ import {
   verifyEmail,
   requestPasswordReset,
   resetPassword,
+  oauthLogin,
   getProfile,
-} from "../auth/auth.controller.js";
-import { authenticateToken } from "../../middlewares/jwt.middleware.js";
+} from "./auth.controller.js";
+
+import { authenticateJWT } from "../../middlewares/jwt.middleware.js";
 
 const router: Router = Router();
 
-// Unprotected endpoints (used by Next.js Credentials provider)
 router.post("/register", register);
 router.post("/login", login);
+router.post("/oauth-login", oauthLogin);
 router.post("/verify-email", verifyEmail);
 router.post("/request-password-reset", requestPasswordReset);
 router.post("/reset-password", resetPassword);
 
-// Protected example
-router.get("/me", authenticateToken, getProfile);
+router.get("/me", authenticateJWT, getProfile);
 
 export default router;

@@ -25,8 +25,8 @@
   },
   "devDependencies": {
     "@repo/typescript-config": "workspace:*",
-    "@vitest/coverage-istanbul": "^4.0.9",
-    "@vitest/ui": "^4.0.9",
+    "@vitest/coverage-istanbul": "^4.0.14",
+    "@vitest/ui": "^4.0.14",
     "glob": "^11.0.3",
     "jsdom": "^27.2.0",
     "nyc": "^17.1.0",

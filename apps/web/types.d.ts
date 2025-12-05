@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { type Razorpay } from "razorpay";
 import { JWT } from "next-auth/jwt";
-import { User, Session } from "next-auth";
+import { User, Session, Account } from "next-auth";
 
 declare global {
   interface Window {
@@ -24,6 +24,16 @@ declare module "next-auth" {
       name: string;
       role: "admin" | "user";
     };
+  }
+
+  interface Account {
+    backendUser: {
+      id: string;
+      email: string;
+      name: string;
+      role: "admin" | "user";
+      image: string;
+    }
   }
 }
 

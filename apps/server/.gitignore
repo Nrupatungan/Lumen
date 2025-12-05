@@ -40,6 +40,7 @@ coverage.json
 tmp/
 temp/
 apps/*/.next/standalone/
+tsconfig.tsbuildinfo
 
 # ----------------------------
 # misc

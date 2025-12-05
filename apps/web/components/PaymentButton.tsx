@@ -7,22 +7,9 @@ import { useRouter } from "next/navigation";
 import { INormalizeError } from "razorpay/dist/types/api";
 import { Orders } from "razorpay/dist/types/orders";
 import { Session } from "next-auth";
+import { loadScript } from "@/utils/loadScript";
 
-function loadScript(src: string) {
-  return new Promise((resolve) => {
-    const script = document.createElement("script");
-    script.src = src;
-    script.onload = () => {
-      resolve(true);
-    };
-    script.onerror = () => {
-      resolve(false);
-    };
-    document.body.appendChild(script);
-  });
-}
-
-interface PaymentButtonProps extends ButtonProps {
+export interface PaymentButtonProps extends ButtonProps {
   title: string;
   price: string;
   redirectlink?: string;
@@ -45,7 +32,7 @@ function PaymentButton(props: PaymentButtonProps) {
     }
 
     const res = await loadScript(
-      "https://checkout.razorpay.com/v1/checkout.js"
+      process.env.NEXT_PUBLIC_RAZORPAY_CHECKOUT_PAGE as string
     );
 
     if (!res) {
