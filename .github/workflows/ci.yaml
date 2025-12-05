@@ -29,8 +29,6 @@ jobs:
         with:
           node-version: 24
           check-latest: true
-          # ❗ Fix: do NOT use pnpm cache here
-          cache: 'npm'
 
       # ------------------------------
       # Enable pnpm
