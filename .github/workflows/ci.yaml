@@ -10,38 +10,84 @@ jobs:
   ci:
     runs-on: ubuntu-latest
 
+    env:
+      # Make mongodb-memory-server fast & stable on CI
+      MONGOMS_VERSION: "7.0.5"
+      MONGOMS_DOWNLOAD_DIR: ~/.cache/mongodb-binaries
+      TURBO_TELEMETRY_DISABLED: 1
+
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v5
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
 
       - name: Setup Node
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v4
         with:
           node-version: 24
+          check-latest: true
+          cache: pnpm
 
-      - name: Enable pnpm (corepack)
+      - name: Enable pnpm via corepack
         run: |
           corepack enable pnpm
           corepack use pnpm@latest-10
           pnpm --version
 
-      - name: Get pnpm store path
-        id: pnpm-cache
-        run: echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+      # ------------------------------
+      # Cache pnpm store
+      # ------------------------------
+
+      - name: Determine pnpm store path
+        id: pnpm-store
+        run: echo "STORE_PATH=$(pnpm store path)" >> "$GITHUB_OUTPUT"
 
       - name: Cache pnpm store
         uses: actions/cache@v4
         with:
-          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          path: ${{ steps.pnpm-store.outputs.STORE_PATH }}
+          key: pnpm-store-${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
-            ${{ runner.os }}-pnpm-store-
+            pnpm-store-${{ runner.os }}-
+
+      # ------------------------------
+      # Cache MongoDB binaries
+      # ------------------------------
+
+      - name: Cache MongoDB binaries
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/mongodb-binaries
+          key: mongodb-${{ runner.os }}-${{ env.MONGOMS_VERSION }}
+          restore-keys: |
+            mongodb-${{ runner.os }}-
+
+      # ------------------------------
+      # Cache turbo (makes build + test fast)
+      # ------------------------------
+
+      - name: Cache Turbo
+        uses: actions/cache@v4
+        with:
+          path: .turbo
+          key: turbo-${{ runner.os }}-${{ github.sha }}
+          restore-keys: |
+            turbo-${{ runner.os }}-
+
+      # ------------------------------
+      # pnpm deps
+      # ------------------------------
 
       - name: Fetch dependencies
         run: pnpm fetch
 
       - name: Install dependencies (offline)
-        run: pnpm install --offline
+        run: pnpm install --offline --frozen-lockfile
+
+      # ------------------------------
+      # Static analysis
+      # ------------------------------
 
       - name: Type Check
         run: pnpm check-types
@@ -52,8 +98,16 @@ jobs:
       - name: Format check
         run: pnpm format:check
 
-      - name: Test
+      # ------------------------------
+      # Tests
+      # ------------------------------
+
+      - name: Run tests
         run: pnpm test
+
+      # ------------------------------
+      # Build
+      # ------------------------------
 
       - name: Build
         run: pnpm build

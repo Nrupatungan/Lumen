@@ -5,7 +5,8 @@ let mongod: MongoMemoryReplSet | null = null;
 
 export async function setupTestDB() {
   mongod = await MongoMemoryReplSet.create({
-    binary: { version: "6.0.6" },
+    binary: { version: "7.0.5" },
+    replSet: { count: 1 },
   });
   const uri = mongod.getUri();
   await mongoose.connect(uri);
