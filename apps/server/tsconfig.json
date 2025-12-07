@@ -1,14 +1,9 @@
 {
-  "extends": "@repo/typescript-config/base",
+  "extends": "@repo/typescript-config/node",
   "compilerOptions": {
     "rootDir": "src",
-    "outDir": "dist",
-    "noEmit": false,
-    "module": "nodenext",
-    "moduleResolution": "nodenext",
-    "esModuleInterop": true,
-    "resolveJsonModule": true
+    "outDir": "dist"
   },
-  "include": ["src/types/**/*.d.ts", "src/**/*", "./express.d.ts"],
+  "include": ["src"],
   "exclude": ["node_modules", "dist", "coverage", "logs"]
 }

@@ -7,8 +7,8 @@ import {
   beforeEach,
 } from "vitest";
 import { setupTestDB, clearDatabase, teardownTestDB } from "../../setup.js";
-import User from "../../../modules/user/user.model.js";
 import mongoose from "mongoose";
+import { User } from "@repo/db";
 
 // Mock the environment variable for bcrypt salt rounds
 process.env.SALT_ROUNDS = "4";

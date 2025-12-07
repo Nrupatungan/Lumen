@@ -8,7 +8,7 @@ import {
 } from "vitest";
 import mongoose, { Schema, Model, Document } from "mongoose";
 import { setupTestDB, teardownTestDB, clearDatabase } from "../../setup.js";
-import Account, { IAccount } from "../../../modules/account/account.model.js";
+import { Account, IAccount } from "@repo/db";
 
 // ----------------------------------------------------
 // Mock User Model Setup

@@ -1,7 +1,7 @@
-import { connectDB } from "./lib/db.js";
 import e, { Express } from "express";
 import cors from "cors";
 import helmet from "helmet";
+import { connectDB } from "@repo/db";
 
 const app: Express = e();
 const allowedOrigins = process.env.CORS_WHITELIST;
@@ -21,7 +21,7 @@ app.use(
 );
 app.use(helmet());
 
-connectDB();
+connectDB(String(process.env.MONGO_URI), String(process.env.MONGO_DB_NAME));
 
 import paymentRouter from "./modules/payment/payment.router.js";
 import authRouter from "./modules/auth/auth.router.js";

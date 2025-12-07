@@ -1,7 +1,7 @@
 "use server";
 
 import { signIn } from "@/auth";
-import { LoginInput } from "@/lib/validators/auth.validator";
+import { LoginInput } from "@repo/shared";
 
 type Res =
   | { success: true; message: string }

@@ -18,10 +18,10 @@ import Card from "@mui/material/Card";
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { registerSchema, RegisterInput } from "@/lib/validators/auth.validator";
 import api from "@/lib/apiClient";
 import { CircularProgress } from "@mui/material";
 import { OAuthLogin } from "@/actions/oauth-action";
+import { RegisterInput, registerSchema } from "@repo/shared";
 
 const SignUpBackground = styled("div")(({ theme }) => ({
   position: "fixed",

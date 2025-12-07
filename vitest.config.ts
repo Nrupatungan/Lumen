@@ -9,8 +9,6 @@ export default defineConfig({
         root: "./packages",
         test: {
           ...sharedConfig.test,
-          // Project-specific configuration for packages
-          // ...
         },
       },
       {

@@ -1,23 +1,22 @@
-// scripts/seedAdmin.ts
 import "dotenv/config";
-import { connectDB } from "../lib/db.js";
-import { UserService } from "../modules/user/user.service.js";
+import { connectDB } from "@repo/db";
+import { AuthService } from "../modules/auth/auth.service";
 
 async function run() {
-  connectDB();
+  connectDB(String(process.env.MONGO_URI), String(process.env.MONGO_DB_NAME));
 
   const email = String(process.env.SEED_ADMIN_EMAIL);
   const password = String(process.env.SEED_ADMIN_PASSWORD);
   const name = String(process.env.SEED_ADMIN_NAME);
   const image = String(process.env.SEED_ADMIN_IMAGE);
 
-  const existing = await UserService.findByEmail(email);
+  const existing = await AuthService.findUserByEmail(email);
   if (existing) {
     console.log("Admin already exists:", email);
     process.exit(0);
   }
 
-  const admin = await UserService.createUser({
+  const admin = await AuthService.createUser({
     name,
     email,
     password,

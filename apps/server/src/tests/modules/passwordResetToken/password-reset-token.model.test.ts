@@ -8,10 +8,7 @@ import {
 } from "vitest";
 import mongoose, { Schema, Model, Document } from "mongoose";
 import { setupTestDB, teardownTestDB, clearDatabase } from "../../setup.js"; // Assuming utilities path
-import {
-  PasswordResetToken,
-  IPasswordResetToken,
-} from "../../../modules/passwordResetToken/password-reset-token.model.js";
+import { IPasswordResetToken, PasswordResetToken } from "@repo/db";
 
 // ----------------------------------------------------
 // Mock User Model Setup

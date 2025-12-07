@@ -7,11 +7,8 @@ import {
   beforeEach,
 } from "vitest";
 import { clearDatabase, setupTestDB, teardownTestDB } from "../../setup.js";
-import {
-  IVerificationToken,
-  VerificationToken,
-} from "../../../modules/verificationToken/verification-token.model.js";
 import mongoose from "mongoose";
+import { IVerificationToken, VerificationToken } from "@repo/db";
 
 // ----------------------------------------------------
 // Database Hooks

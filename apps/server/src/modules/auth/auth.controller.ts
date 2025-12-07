@@ -1,30 +1,30 @@
 import { RequestHandler } from "express";
 import { asyncHandler } from "../../utils/asyncHandler.js";
 import { AuthService } from "./auth.service.js";
-import { UserService } from "../user/user.service.js";
 
 import {
-  registerSchema,
-  loginSchema,
-  requestPasswordResetSchema,
   resetPasswordSchema,
   oauthLoginSchema,
 } from "../../lib/validators/auth.validator.js";
 
 import { ResendService } from "../../services/resend.service.js";
-import Account from "../account/account.model.js";
-import User from "../user/user.model.js";
+import {
+  loginSchema,
+  registerSchema,
+  requestPasswordResetSchema,
+} from "@repo/shared";
+import { Account, User } from "@repo/db";
 
 export const register: RequestHandler = asyncHandler(async (req, res) => {
   const parsed = registerSchema.parse(req.body);
 
-  const existing = await UserService.findByEmail(parsed.email);
+  const existing = await AuthService.findUserByEmail(parsed.email);
   if (existing) {
     res.status(409).json({ message: "Email already in use" });
     return;
   }
 
-  const user = await UserService.createUser(parsed);
+  const user = await AuthService.createUser(parsed);
 
   const token = await AuthService.createEmailVerificationToken(
     user._id.toString()
@@ -76,10 +76,10 @@ export const oauthLogin: RequestHandler = asyncHandler(async (req, res) => {
   let user;
 
   if (account) {
-    user = await UserService.findById(account.userId.toString());
+    user = await AuthService.findUserById(account.userId.toString());
   } else {
     // Create user if doesn't exist
-    user = await UserService.findByEmail(email);
+    user = await AuthService.findUserByEmail(email);
 
     if (!user) {
       user = (
@@ -132,7 +132,7 @@ export const verifyEmail: RequestHandler = asyncHandler(async (req, res) => {
 export const requestPasswordReset: RequestHandler = asyncHandler(
   async (req, res) => {
     const parsed = requestPasswordResetSchema.parse(req.body);
-    const user = await UserService.findByEmail(parsed.email);
+    const user = await AuthService.findUserByEmail(parsed.email);
 
     if (user) {
       const token = await AuthService.createPasswordResetToken(
@@ -161,14 +161,13 @@ export const resetPassword: RequestHandler = asyncHandler(async (req, res) => {
   res.json({ message: "Password reset successful" });
 });
 
-/** Example protected route (credentials-based) */
 export const getProfile: RequestHandler = asyncHandler(async (req, res) => {
   if (!req.user || !req.user.id) {
     res.status(401).json({ message: "Unauthorized" });
     return;
   }
 
-  const user = await UserService.findById(req.user.id);
+  const user = await AuthService.findUserById(req.user.id);
   if (!user) {
     res.status(404).json({ message: "User not found" });
     return;

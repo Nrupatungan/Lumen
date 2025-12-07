@@ -9,6 +9,7 @@
 .git
 .turbo
 turbo
+*.tsbuildinfo
 
 # always COPY these into the container:
 !package.json

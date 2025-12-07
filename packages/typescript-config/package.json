@@ -5,11 +5,7 @@
   "type": "module",
   "exports": {
     "./base": "./base.json",
-    "./react-library": "./react-library.json",
+    "./node": "./node.json",
     "./nextjs": "./nextjs.json"
-  },
-  "license": "MIT",
-  "publishConfig": {
-    "access": "public"
   }
 }

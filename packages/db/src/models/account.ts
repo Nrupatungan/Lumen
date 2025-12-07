@@ -33,7 +33,5 @@ const accountSchema = new Schema<IAccount>(
 
 accountSchema.index({ provider: 1, providerAccountId: 1 }, { unique: true });
 
-const Account: Model<IAccount> =
+export const Account: Model<IAccount> =
   mongoose.models.Account || mongoose.model<IAccount>("Account", accountSchema);
-
-export default Account;

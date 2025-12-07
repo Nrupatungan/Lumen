@@ -7,13 +7,13 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import { useForm } from "react-hook-form";
-import {
-  RequestPasswordResetInput,
-  requestPasswordResetSchema,
-} from "@/lib/validators/auth.validator";
 import { zodResolver } from "@hookform/resolvers/zod";
 import api from "@/lib/apiClient";
 import { Typography } from "@mui/material";
+import {
+  RequestPasswordResetInput,
+  requestPasswordResetSchema,
+} from "@repo/shared";
 
 interface ForgotPasswordProps {
   open: boolean;
